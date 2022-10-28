@@ -4,8 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+enum destino {Comuna1,Comuna2 };
+enum prioridad { express, diferido, el_otro};
+ 
+
 namespace CociMundo
 {
+
     static class Program
     {
         /// <summary>

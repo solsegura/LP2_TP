@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="cCocimundo.cs" />
     <Compile Include="cFecha.cs" />
+    <Compile Include="cGrafo.cs" />
     <Compile Include="cProducto.cs" />
     <Compile Include="cPedido.cs" />
     <Compile Include="cVehiculo.cs" />

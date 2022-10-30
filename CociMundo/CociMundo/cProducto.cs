@@ -8,5 +8,9 @@ namespace CociMundo
 {
     class cProducto
     {
+        string Descripcion;
+        int Volumen;
+
     }
 }
+

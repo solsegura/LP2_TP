@@ -13,7 +13,7 @@ namespace CociMundo
         public void AgregarVertice(string vertice) {   //agregamos un nodo
             this.Grafo.Add(vertice, new List<Tuple<string, int>>());
         }
-
+        
         public void AgregarArista(string vertice_1, string vertice_2, int peso) {  //agregamos un camino entre dos nodos
             Grafo[vertice_1].Add(new Tuple<string, int>(vertice_2, peso));
             Grafo[vertice_2].Add(new Tuple<string, int>(vertice_1, peso));  //al usar caminos no direccionados, ponemos en la lista de ambos el nuevo camino

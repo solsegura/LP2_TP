@@ -19,6 +19,7 @@ namespace CociMundo
         [STAThread]
         static void Main()
         {
+            cVehiculo auto = new cVehiculo();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

@@ -60,8 +60,14 @@ namespace CociMundo
                     else if (todos_los_pedidos[i-1].Volumen_total <= w){
                         if(todos_los_pedidos[i - 1].Val + matriz_dinamica[i - 1, w - todos_los_pedidos[i - 1].Volumen_total]> matriz_dinamica[i - 1, w])
                         {
+                            if (i == n)
+                            {
+                                cosas_que_llevo[c] = todos_los_pedidos[i - 1];  //queremos guardarnos las cosas que van a ir al camion 
+                                c++;
+                            }
                             matriz_dinamica[i, w] = todos_los_pedidos[i - 1].Val + matriz_dinamica[i - 1, w - todos_los_pedidos[i - 1].Volumen_total];
-                            //cosas_que_llevo[w-1] = todos_los_pedidos[i - 1];
+                           
+                          
                         }
                         else
                         {

@@ -22,9 +22,16 @@ namespace CociMundo
 
         public void Ir(Destino Destino) { }  //no se   que onda esto pero le tengo que poner public a cada metodo, no se como hacer el constructor y destructor
         public void Repartir(cPedido pedido) { }
-        public void CargarNafta() { }
+        public void CargarNafta() {
+            this.Nafta_act = Nafta_max;
+        }
 
-        public cVehiculo(string modelo, int carga_max) {
+        /// <summary>
+        /// Constructor para testear
+        /// </summary>
+        /// <param name="modelo"></param>
+        /// <param name="carga_max"></param>
+        public cVehiculo(string modelo, int carga_max) {  
             this.Modelo = modelo;
             this.Carga_max = carga_max;
             this.Elevador = false;

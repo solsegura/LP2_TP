@@ -10,7 +10,14 @@ namespace CociMundo
     {
         string Descripcion;
         int Volumen;
+        int Precio;
 
+        public cProducto(string descripcion, int volumen, int precio)
+        {
+            this.Descripcion = descripcion;
+            this.Volumen = volumen;
+            this.Precio = precio;
+        }
     }
 }
 

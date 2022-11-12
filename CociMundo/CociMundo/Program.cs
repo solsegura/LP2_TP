@@ -29,7 +29,7 @@ namespace CociMundo
             auto.todos_los_pedidos.Add(pe3);
             auto.todos_los_pedidos.Add(pe4);
 
-            int algo = auto.Problema_mochila_dinamico(4);
+            List<cPedido> algo = auto.Problema_mochila_dinamico(4);
 
             
 

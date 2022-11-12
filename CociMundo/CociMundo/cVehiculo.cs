@@ -38,51 +38,55 @@ namespace CociMundo
         }
 
 
-        // Returns the maximum value that
-        // can be put in a knapsack of
-        // capacity W
-        public int Problema_mochila_dinamico( int n)  //val es mas grande para los elementos que menos tiempo les queda
+        /// <summary>
+        /// Recibe el numero total de pedidos que hay en Cocimundo y retorna una lista con los pedidos que este camion va a repartir hoy
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public List<cPedido> Problema_mochila_dinamico( int n)  //val es mas grande para los elementos que menos tiempo les queda
         {
             
             int i, w;
             int[,] matriz_dinamica = new int[n + 1, Carga_max + 1];
-            cPedido[] cosas_que_llevo=new cPedido[n];
+            List<cPedido>[,] cosas_que_llevo = new List<cPedido>[n + 1, Carga_max + 1];   //en esta matriz vamos a guardar los pedidos que debemos llevar en el vehiculo (quedan en el orden que llegan, osea ordenados por distancia)
             int c = 0;
-            // Build table matriz_dinamica[][] in bottom
-            // up manner
+            
             for (i = 0; i <= n; i++)
             {
                 for (w = 0; w <= Carga_max; w++)
                 {
-                    if (i == 0 || w == 0)
+                    if (i == 0 || w == 0) {
                         matriz_dinamica[i, w] = 0;
-
-                    else if (todos_los_pedidos[i-1].Volumen_total <= w){
-                        if(todos_los_pedidos[i - 1].Val + matriz_dinamica[i - 1, w - todos_los_pedidos[i - 1].Volumen_total]> matriz_dinamica[i - 1, w])
+                        cosas_que_llevo[i, w] = new List<cPedido>();   
+                    }
+                    else if (todos_los_pedidos[i - 1].Volumen_total <= w) {
+                        if (todos_los_pedidos[i - 1].Val + matriz_dinamica[i - 1, w - todos_los_pedidos[i - 1].Volumen_total] > matriz_dinamica[i - 1, w])
                         {
-                            if (i == n)
-                            {
-                                cosas_que_llevo[c] = todos_los_pedidos[i - 1];  //queremos guardarnos las cosas que van a ir al camion 
-                                c++;
-                            }
+
                             matriz_dinamica[i, w] = todos_los_pedidos[i - 1].Val + matriz_dinamica[i - 1, w - todos_los_pedidos[i - 1].Volumen_total];
-                           
-                          
+                            cosas_que_llevo[i, w] = cosas_que_llevo[i - 1, w - todos_los_pedidos[i - 1].Volumen_total];
+                            cosas_que_llevo[i, w].Add(todos_los_pedidos[i - 1]);
+
                         }
                         else
                         {
                             matriz_dinamica[i, w] = matriz_dinamica[i - 1, w];
-                           
+                            cosas_que_llevo[1, w] = cosas_que_llevo[i - 1, w];
 
                         }
-                    
+
                     }
                     else
+                    {
                         matriz_dinamica[i, w] = matriz_dinamica[i - 1, w];
+                        cosas_que_llevo[i, w] = cosas_que_llevo[i - 1, w];
+                    }
+
+
                 }
             }
 
-            return matriz_dinamica[n, Carga_max];
+            return cosas_que_llevo[n,Carga_max];   //ni siquiera hace falta retornar, podriamos directamente meterlo en el stack y a la vez ponerlo en el forms
         }
 
     }

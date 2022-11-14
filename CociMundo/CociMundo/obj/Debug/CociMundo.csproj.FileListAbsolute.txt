@@ -7,3 +7,12 @@ C:\Users\sol\Desktop\Favaloro\Segundo\LP2\TP\CociMundo\CociMundo\obj\Debug\CociM
 C:\Users\sol\Desktop\Favaloro\Segundo\LP2\TP\CociMundo\CociMundo\obj\Debug\CociMundo.csproj.CoreCompileInputs.cache
 C:\Users\sol\Desktop\Favaloro\Segundo\LP2\TP\CociMundo\CociMundo\obj\Debug\CociMundo.exe
 C:\Users\sol\Desktop\Favaloro\Segundo\LP2\TP\CociMundo\CociMundo\obj\Debug\CociMundo.pdb
+C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\bin\Debug\CociMundo.exe.config
+C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\bin\Debug\CociMundo.exe
+C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\bin\Debug\CociMundo.pdb
+C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\obj\Debug\CociMundo.csproj.AssemblyReference.cache
+C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\obj\Debug\CociMundo.Properties.Resources.resources
+C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\obj\Debug\CociMundo.csproj.GenerateResource.cache
+C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\obj\Debug\CociMundo.csproj.CoreCompileInputs.cache
+C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\obj\Debug\CociMundo.exe
+C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\obj\Debug\CociMundo.pdb

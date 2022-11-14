@@ -16,15 +16,15 @@ namespace CociMundo
         public int Val;
         Prioridad Prioridad;
 
-        public cPedido(int vol,  int v)
+        public cPedido(string nombre, int volumen, Destino direcion,  int valor, Prioridad prioridad)
         {
-            this.Volumen_total = vol;
-            this.Direccion = CociMundo.Destino.Comuna1;
-            this.Nombre = "no";
+            this.Nombre = nombre;
+            this.Direccion = direcion;
+            this.Volumen_total = volumen;
             this.Lista_productos = new List<cProducto>();
             this.Fecha_entrega_max = new cFecha();
-            this.Val = v;
-            this.Prioridad = CociMundo.Prioridad.diferido;
+            this.Val = valor;
+            this.Prioridad = prioridad;
         }
 
     }

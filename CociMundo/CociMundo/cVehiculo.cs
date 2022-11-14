@@ -31,14 +31,13 @@ namespace CociMundo
         /// </summary>
         /// <param name="modelo"></param>
         /// <param name="carga_max"></param>
-        public cVehiculo(string modelo, int carga_max) {  
+        public cVehiculo(int cant_viajes_max, string modelo, int carga_max) {
+            this.Cant_viajes_max = cant_viajes_max;
             this.Modelo = modelo;
             this.Carga_max = carga_max;
-            this.Elevador = false;
-            this.Cant_viajes_max = 0;
             this.Carga_act = 0;
+            this.Cant_viajes_max = 0;
             this.PedidosHoy = new Stack<cPedido>();
-            this.Nafta_act = 0;
             this.Nafta_max = 0;
             this.todos_los_pedidos = new List<cPedido>();
             this.mapa = new cGrafo();

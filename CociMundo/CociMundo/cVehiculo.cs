@@ -44,6 +44,22 @@ namespace CociMundo
         }
 
 
+        public void Ordenar_por_destino(int cant_pedidos)
+        {
+            for (int n = 0; n < cant_pedidos; n++)
+            {
+                for(int i=0; i < cant_pedidos; i++)
+                {
+                    if (todos_los_pedidos[i].Dist_a_liniers > todos_los_pedidos[i + 1].Dist_a_liniers)
+                    {
+                        cPedido aux = todos_los_pedidos[i];    //ordenamos de mas cerca de liniers a mas lejos
+                        todos_los_pedidos[i] = todos_los_pedidos[i + 1];
+                        todos_los_pedidos[i + 1] = aux;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Recibe el numero total de pedidos que hay en Cocimundo y retorna una lista con los pedidos que este camion va a repartir hoy
         /// </summary>

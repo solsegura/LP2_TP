@@ -10,7 +10,9 @@ namespace CociMundo
     {
         Dictionary<string, List<Tuple<string, int>>> Grafo;  //ver tema constructor
 
-        public cGrafo() { }
+        public cGrafo() {
+            Grafo = new Dictionary<string, List<Tuple<string, int>>>();
+        }
         public void AgregarVertice(string vertice) {   //agregamos un nodo
             this.Grafo.Add(vertice, new List<Tuple<string, int>>());
         }

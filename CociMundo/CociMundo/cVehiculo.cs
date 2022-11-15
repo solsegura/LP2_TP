@@ -38,13 +38,18 @@ namespace CociMundo
 
         }  
         public void Repartir() {
-            for(int n = 0; n < this.PedidosHoy.Count; n++)
+            if (this.Cant_viajes_max > 0)
             {
-                Ir(PedidosHoy.Peek().Direccion);  //voy a la direccion
-                this.Nodo_actual = PedidosHoy.Peek().Direccion;  //ahora estoy en esta direccion tendria que aparecer un cartel tipo ACA Entrego
-                this.PedidosHoy.Pop();  //lo entrego
+                for (int n = 0; n < this.PedidosHoy.Count; n++)
+                {
+                    Ir(PedidosHoy.Peek().Direccion);  //voy a la direccion
+                    this.Nodo_actual = PedidosHoy.Peek().Direccion;  //ahora estoy en esta direccion tendria que aparecer un cartel tipo ACA Entrego
+                    this.PedidosHoy.Pop();  //lo entrego
+                }
+                Ir("Comuna 9");  //vuelvo a Liniers despues de repartir todo
+                this.Cant_viajes_max--;   //ya hice un viaje hoy entonces lo resto
             }
-            Ir("Comuna 9");  //vuelvo a Liniers despues de repartir todo
+            
         }
         public void CargarNafta() {
             this.Nafta_act = Nafta_max;
@@ -68,36 +73,45 @@ namespace CociMundo
             this.Nodo_actual = "Comuna 9";
         }
 
+        public void SetPedidos(List<cPedido> pedidos)
+        {
+            this.todos_los_pedidos = pedidos;
+
+        }
+
         /// <summary>
         /// ordenamos todos los pedidos de mas lejos de liniers a mas cerca
         /// </summary>
         /// <param name="cant_pedidos"></param>
-        public void Ordenar_por_destino(int cant_pedidos)
-        {
-            for (int n = 0; n < cant_pedidos; n++)
-            {
-                for(int i=0; i < cant_pedidos-1; i++)
-                {
-                    if (todos_los_pedidos[i].Dist_a_liniers < todos_los_pedidos[i + 1].Dist_a_liniers)
-                    {
-                        cPedido aux = todos_los_pedidos[i];    
-                        todos_los_pedidos[i] = todos_los_pedidos[i + 1];
-                        todos_los_pedidos[i + 1] = aux;
-                    }
-                }
-            }
+        //public void Ordenar_por_destino(int cant_pedidos)
+        //{
+        //    for (int n = 0; n < cant_pedidos; n++)
+        //    {
+        //        for(int i=0; i < cant_pedidos-1; i++)
+        //        {
+        //            if (todos_los_pedidos[i].Dist_a_liniers < todos_los_pedidos[i + 1].Dist_a_liniers)
+        //            {
+        //                cPedido aux = todos_los_pedidos[i];    
+        //                todos_los_pedidos[i] = todos_los_pedidos[i + 1];
+        //                todos_los_pedidos[i + 1] = aux;
+        //            }
+        //        }
+        //    }
 
-            this.Problema_mochila_dinamico(cant_pedidos); //una vez que esta ordenado ya podemos evaluar cuales van al camion
-        }
+        //    this.Problema_mochila_dinamico(cant_pedidos); //una vez que esta ordenado ya podemos evaluar cuales van al camion
+        //}
 
         /// <summary>
         /// Recibe el numero total de pedidos que hay en Cocimundo y retorna una lista con los pedidos que este camion va a repartir hoy
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public void Problema_mochila_dinamico( int n)  //val es mas grande para los elementos que menos tiempo les queda
+        public void Problema_mochila_dinamico( )  //val es mas grande para los elementos que menos tiempo les queda
         {
-            
+            foreach(var item in this.todos_los_pedidos){
+                item.CalcularVolTotal();
+            }
+            int n = todos_los_pedidos.Count();
             int i, w;
             int[,] matriz_dinamica = new int[n + 1, Carga_max + 1];
             List<cPedido>[,] cosas_que_llevo = new List<cPedido>[n + 1, Carga_max + 1];   //en esta matriz vamos a guardar los pedidos que debemos llevar en el vehiculo (quedan en el orden que llegan, osea ordenados por distancia)
@@ -147,9 +161,18 @@ namespace CociMundo
         /// <param name="cosas_que_llevo"></param>
         public void Llenar_vehiculo(List<cPedido> cosas_que_llevo)
         {
+            
             foreach (var item in cosas_que_llevo)
-                this.PedidosHoy.Push(item);   
+            {
+                this.PedidosHoy.Push(item);
+                this.todos_los_pedidos.Remove(item); //lo borro de la lista de todos los productos porque ya lo saque del almacen
+            }
 
+        }
+
+        public void SetCantViajes(int c)
+        {
+            this.Cant_viajes_max = c;
         }
 
     }

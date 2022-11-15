@@ -16,20 +16,19 @@ namespace CociMundo
        public string Direccion;
         public int Dist_a_liniers;
        public  int Volumen_total;  //al agregar un prod se debe sumar al vol total
-        List<cProducto> Lista_productos;  //esta lista template venia con el c sharp, creo que tiene metodos para agregar, borrar etc
+        public List<cProducto> Lista_productos;  //esta lista template venia con el c sharp, creo que tiene metodos para agregar, borrar etc
         DateTime Fecha_Pedido;  //fecha en la que se realizo el pedido
         DateTime Fecha_entrega_max;  //fecha maxima en la que se puede entregar
         public int Val;
         Prioridad Prioridadd;
 
-        public cPedido(string nombre, int volumen, string direcion,  int valor, Prioridad prioridad, DateTime fecha_pedido)
+        public cPedido(string nombre, string direcion, Prioridad prioridad, DateTime fecha_pedido)
         {
             this.Nombre = nombre;
             this.Direccion = direcion;
-            this.Volumen_total = volumen;
+            this.Volumen_total = 0;
             this.Lista_productos = new List<cProducto>();
             this.Fecha_Pedido = fecha_pedido;
-            this.Val = valor;
             this.Prioridadd = prioridad;
 
             if (this.Direccion == "Comuna 2"|| this.Direccion == "Comuna 13"|| this.Direccion == "Comuna 14"|| this.Direccion == "Avellaneda" || this.Direccion == "San Isidro")
@@ -68,8 +67,18 @@ namespace CociMundo
             TimeSpan aux = Fecha_entrega_max - DateTime.Now;
             this.Val = 100 - aux.Hours;    //el valor de entregar este pedido es mas grande para pedidos que les quedan pocas horas 
 
+           
+        
         }
 
+       public void CalcularVolTotal()
+        {
+            foreach (var item in this.Lista_productos)
+            {
+                this.Volumen_total += item.GetVolumen();
+            }
+
+        }
         
 
       

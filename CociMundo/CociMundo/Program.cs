@@ -23,7 +23,75 @@ namespace CociMundo
     [STAThread]
         static void Main()
         {
-       
+            cCocimundo cocimundo = new cCocimundo();
+
+            DateTime Fecha1 = new DateTime(2022, 11, 13);
+            DateTime Fecha2 = new DateTime(2022, 11, 12);
+            DateTime Fecha3 = new DateTime(2022, 11, 11);
+
+
+            cProducto Heladera = new cProducto("heladera", 10, 2000);
+            cProducto Microondas = new cProducto("microondas", 4, 100);
+            cProducto Licuadora = new cProducto("licuadora", 1, 300);
+            cProducto TV = new cProducto("TV", 2, 3000);
+            cProducto Tostadora = new cProducto("tostadora", 1, 200);
+
+            cPedido Pedido1 = new cPedido("Fiorella", Todos_los_destinos[0], Prioridad.diferido, Fecha1);
+            cPedido Pedido2 = new cPedido("Sol", Todos_los_destinos[0], Prioridad.express, Fecha1);  //de los mas prioritarios
+            cPedido Pedido3 = new cPedido("Valentina", Todos_los_destinos[1], Prioridad.normal, Fecha2);
+            cPedido Pedido4 = new cPedido("Rosario", Todos_los_destinos[6], Prioridad.normal, Fecha1);
+            cPedido Pedido5 = new cPedido("Eze", Todos_los_destinos[17], Prioridad.normal, Fecha3);
+            cPedido Pedido6 = new cPedido("El Pampa", Todos_los_destinos[23], Prioridad.normal, DateTime.Today);  //el menos prioritario
+            cPedido Pedido7 = new cPedido("Andrea", Todos_los_destinos[6], Prioridad.express, Fecha1);
+            cPedido Pedido8 = new cPedido("Bruno", Todos_los_destinos[19], Prioridad.diferido, Fecha3);
+
+            Pedido1.Lista_productos.Add(Heladera);  //fio necesita dos heladeras
+            Pedido1.Lista_productos.Add(Heladera);
+            Pedido1.Lista_productos.Add(Microondas);
+
+            Pedido2.Lista_productos.Add(TV);
+            Pedido2.Lista_productos.Add(Microondas);
+            
+            Pedido3.Lista_productos.Add(Licuadora);
+
+            Pedido4.Lista_productos.Add(Tostadora);
+            Pedido4.Lista_productos.Add(TV);
+            Pedido4.Lista_productos.Add(TV);
+
+            Pedido5.Lista_productos.Add(Licuadora); //eze renueva la cocina
+            Pedido5.Lista_productos.Add(Microondas);
+            Pedido5.Lista_productos.Add(Heladera);
+            Pedido5.Lista_productos.Add(Tostadora);
+            
+            Pedido6.Lista_productos.Add(Tostadora);
+
+            
+            Pedido7.Lista_productos.Add(TV);
+
+            Pedido8.Lista_productos.Add(Microondas);
+            Pedido8.Lista_productos.Add(Heladera);
+
+            cVehiculo Furgon = new cVehiculo(1, "no se", 30);
+            cVehiculo Furgoneta = new cVehiculo(1, "no se", 20);
+            cVehiculo Camioneta = new cVehiculo(4, "no se", 30);
+
+            cocimundo.Todos_los_pedidos.Add(Pedido1);
+            cocimundo.Todos_los_pedidos.Add(Pedido2);
+            cocimundo.Todos_los_pedidos.Add(Pedido3);
+            cocimundo.Todos_los_pedidos.Add(Pedido4);
+            cocimundo.Todos_los_pedidos.Add(Pedido5);
+            cocimundo.Todos_los_pedidos.Add(Pedido6);
+            cocimundo.Todos_los_pedidos.Add(Pedido7);
+            cocimundo.Todos_los_pedidos.Add(Pedido8);
+
+            cocimundo.VectorVehiculo.Add(Furgon);
+            cocimundo.VectorVehiculo.Add(Furgoneta);
+            cocimundo.VectorVehiculo.Add(Camioneta);
+
+            Furgon.SetPedidos(cocimundo.Todos_los_pedidos);
+            Furgoneta.SetPedidos(cocimundo.Todos_los_pedidos);
+            Camioneta.SetPedidos(cocimundo.Todos_los_pedidos);
+
 
             //auto.todos_los_pedidos.Add(pe1);
             //auto.todos_los_pedidos.Add(pe2);
@@ -165,8 +233,13 @@ namespace CociMundo
 
 
 
+            cocimundo.enviarVehiculos();
 
 
+            //FINAL DEL DIA
+            Furgon.SetCantViajes(1);
+            Furgoneta.SetCantViajes(1);
+            Camioneta.SetCantViajes(4);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

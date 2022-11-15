@@ -19,6 +19,11 @@ namespace CociMundo
             this.Precio = precio;
 
         }
+
+        public int GetVolumen()
+        {
+            return this.Volumen;
+        }
     }
 }
 

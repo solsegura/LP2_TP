@@ -13,23 +13,22 @@ namespace CociMundo
         
         
         public string Nombre;
-        string Direccion;
+       public string Direccion;
         public int Dist_a_liniers;
        public  int Volumen_total;  //al agregar un prod se debe sumar al vol total
         List<cProducto> Lista_productos;  //esta lista template venia con el c sharp, creo que tiene metodos para agregar, borrar etc
-        DateTime Fecha_entrega_act;
-
-        DateTime Fecha_entrega_max;
+        DateTime Fecha_Pedido;  //fecha en la que se realizo el pedido
+        DateTime Fecha_entrega_max;  //fecha maxima en la que se puede entregar
         public int Val;
         Prioridad Prioridadd;
 
-        public cPedido(string nombre, int volumen, string direcion,  int valor, Prioridad prioridad)
+        public cPedido(string nombre, int volumen, string direcion,  int valor, Prioridad prioridad, DateTime fecha_pedido)
         {
             this.Nombre = nombre;
             this.Direccion = direcion;
             this.Volumen_total = volumen;
             this.Lista_productos = new List<cProducto>();
-           // this.Fecha_entrega_max = new cFecha();
+            this.Fecha_Pedido = fecha_pedido;
             this.Val = valor;
             this.Prioridadd = prioridad;
 
@@ -54,19 +53,24 @@ namespace CociMundo
             switch (Prioridadd)
             {
                 case Prioridad.express:
-                    this.Fecha_entrega_max = Fecha_entrega_act.AddDays(1);
+                    this.Fecha_entrega_max =this.Fecha_Pedido.AddDays(1);
                     break;
                 case Prioridad.diferido:
-                    this.Fecha_entrega_max = Fecha_entrega_act.AddHours(96);
+                    this.Fecha_entrega_max = this.Fecha_Pedido.AddHours(96);
                     break;
                 case Prioridad.normal:
-                    this.Fecha_entrega_max = Fecha_entrega_act.AddHours(72);
+                    this.Fecha_entrega_max = this.Fecha_Pedido.AddHours(72);
                     break;
 
             }
 
+
+            TimeSpan aux = Fecha_entrega_max - DateTime.Now;
+            this.Val = 100 - aux.Hours;    //el valor de entregar este pedido es mas grande para pedidos que les quedan pocas horas 
+
         }
 
+        
 
       
     }

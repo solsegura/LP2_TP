@@ -18,16 +18,40 @@ namespace CociMundo
         int Nafta_act;
         public List<cPedido> todos_los_pedidos;
         cGrafo mapa;
+        string Nodo_actual;
 
+        public void Ir(string destino) {
+            Dictionary<string, string> auxiliar = this.mapa.Dijkstra(this.Nodo_actual);  //ahora tengo un diccionario que tiene guardados todos los saltos entre nodos
+            string nodo_aux = destino;
+            Stack<string> Camino_hasta_destino=new Stack<string>();
+            while (nodo_aux != Nodo_actual)
+            {
+                Camino_hasta_destino.Push(auxiliar[nodo_aux]);  //guardamos de atras para adelante el camino que hay que hacer 
+                nodo_aux = auxiliar[nodo_aux];
+            }
 
-        public void Ir(Destino Destino) { }  //no se   que onda esto pero le tengo que poner public a cada metodo, no se como hacer el constructor y destructor
-        public void Repartir(cPedido pedido) { }
+            for(int n = 0; n < Camino_hasta_destino.Count(); n++)
+            {
+                this.Nodo_actual = Camino_hasta_destino.Pop();  //vamos recorriendo el camino hasta destino
+                //mostrar en el form el nodo actual tipo de otro color
+            }
+
+        }  
+        public void Repartir() {
+            for(int n = 0; n < this.PedidosHoy.Count; n++)
+            {
+                Ir(PedidosHoy.Peek().Direccion);  //voy a la direccion
+                this.Nodo_actual = PedidosHoy.Peek().Direccion;  //ahora estoy en esta direccion tendria que aparecer un cartel tipo ACA Entrego
+                this.PedidosHoy.Pop();  //lo entrego
+            }
+            Ir("Comuna 9");  //vuelvo a Liniers despues de repartir todo
+        }
         public void CargarNafta() {
             this.Nafta_act = Nafta_max;
         }
 
         /// <summary>
-        /// Constructor para testear
+        /// Constructor 
         /// </summary>
         /// <param name="modelo"></param>
         /// <param name="carga_max"></param>
@@ -41,23 +65,29 @@ namespace CociMundo
             this.Nafta_max = 0;
             this.todos_los_pedidos = new List<cPedido>();
             this.mapa = new cGrafo();
+            this.Nodo_actual = "Comuna 9";
         }
 
-
+        /// <summary>
+        /// ordenamos todos los pedidos de mas lejos de liniers a mas cerca
+        /// </summary>
+        /// <param name="cant_pedidos"></param>
         public void Ordenar_por_destino(int cant_pedidos)
         {
             for (int n = 0; n < cant_pedidos; n++)
             {
-                for(int i=0; i < cant_pedidos; i++)
+                for(int i=0; i < cant_pedidos-1; i++)
                 {
-                    if (todos_los_pedidos[i].Dist_a_liniers > todos_los_pedidos[i + 1].Dist_a_liniers)
+                    if (todos_los_pedidos[i].Dist_a_liniers < todos_los_pedidos[i + 1].Dist_a_liniers)
                     {
-                        cPedido aux = todos_los_pedidos[i];    //ordenamos de mas cerca de liniers a mas lejos
+                        cPedido aux = todos_los_pedidos[i];    
                         todos_los_pedidos[i] = todos_los_pedidos[i + 1];
                         todos_los_pedidos[i + 1] = aux;
                     }
                 }
             }
+
+            this.Problema_mochila_dinamico(cant_pedidos); //una vez que esta ordenado ya podemos evaluar cuales van al camion
         }
 
         /// <summary>
@@ -65,7 +95,7 @@ namespace CociMundo
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public List<cPedido> Problema_mochila_dinamico( int n)  //val es mas grande para los elementos que menos tiempo les queda
+        public void Problema_mochila_dinamico( int n)  //val es mas grande para los elementos que menos tiempo les queda
         {
             
             int i, w;
@@ -107,9 +137,22 @@ namespace CociMundo
 
                 }
             }
+            this.Llenar_vehiculo(cosas_que_llevo[n, Carga_max]);  //lleno el vehiculo con la lista que queda en la matriz
+           
+        }
 
-            return cosas_que_llevo[n,Carga_max];   //ni siquiera hace falta retornar, podriamos directamente meterlo en el stack y a la vez ponerlo en el forms
+        /// <summary>
+        /// meto en la pila las cosas que el camion lleva hoy, quedan al fondo del camion los que estan a mayor distancia de liniers
+        /// </summary>
+        /// <param name="cosas_que_llevo"></param>
+        public void Llenar_vehiculo(List<cPedido> cosas_que_llevo)
+        {
+            foreach (var item in cosas_que_llevo)
+                this.PedidosHoy.Push(item);   
+
         }
 
     }
+
+   
 }

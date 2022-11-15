@@ -21,7 +21,7 @@ namespace CociMundo
 
         }
 
-        Dictionary<string,int> Dijkstra(string nodo_partida) {
+        public Dictionary<string, string> Dijkstra(string nodo_partida) {
             HashSet<string> Lo_que_ya_visite = new HashSet<string>();
             string nodo_actual;
             Dictionary<string, int> dist_hasta = new Dictionary<string, int>();
@@ -44,7 +44,7 @@ namespace CociMundo
                     }
                 }
             }
-            return dist_hasta;  //dist hasta ahora contiene las distancias mas cortas entre nodo_partida y todo el resto de los nodos (ver video, o preguntar)
+            return salto_anterior;  //dist hasta ahora contiene las distancias mas cortas entre nodo_partida y todo el resto de los nodos (ver video, o preguntar)
 
             //salto_anterior tiene nodo_destino , nodo del que vengo entonces cuando quiero recomponer el camino para saber como ir de A a C, le paso a dijktra A, y uso salto_anterior[C] para ir de atras para adelante y ver que camino era
         }  

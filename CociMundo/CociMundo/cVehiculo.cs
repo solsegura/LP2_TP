@@ -65,7 +65,7 @@ namespace CociMundo
             this.Modelo = modelo;
             this.Carga_max = carga_max;
             this.Carga_act = 0;
-            this.Cant_viajes_max = 0;
+            //this.Cant_viajes_max = 0;
             this.PedidosHoy = new Stack<cPedido>();
             this.Nafta_max = 0;
             this.todos_los_pedidos = new List<cPedido>();
@@ -76,6 +76,11 @@ namespace CociMundo
         public void SetPedidos(List<cPedido> pedidos)
         {
             this.todos_los_pedidos = pedidos;
+
+        }
+        public void SetGrafo(cGrafo g)
+        {
+            this.mapa = g;
 
         }
 
@@ -162,15 +167,30 @@ namespace CociMundo
         /// <param name="cosas_que_llevo"></param>
         public void Llenar_vehiculo(List<cPedido> cosas_que_llevo)
         {
-            
+            int cant_pedidos = cosas_que_llevo.Count();
+            for (int n = 0; n < cant_pedidos; n++)   //primero lo ordeno de mas lejos de liniers a mas cerca para que al meterlos al camion queden los mas lejanos al fondo
+            {
+                for (int i = 0; i < cant_pedidos - 1; i++)
+                {
+                    if (cosas_que_llevo[i].Dist_a_liniers < cosas_que_llevo[i + 1].Dist_a_liniers)
+                    {
+                        cPedido aux = cosas_que_llevo[i];
+                        cosas_que_llevo[i] = cosas_que_llevo[i + 1];
+                        cosas_que_llevo[i + 1] = aux;
+                    }
+                }
+            }  
             foreach (var item in cosas_que_llevo)
             {
                 this.PedidosHoy.Push(item);
                 this.todos_los_pedidos.Remove(item); //lo borro de la lista de todos los productos porque ya lo saque del almacen
             }
 
+            this.Repartir();  //cuando termino de cargar el camion, reparto
+
         }
 
+        
         public void SetCantViajes(int c)
         {
             this.Cant_viajes_max = c;

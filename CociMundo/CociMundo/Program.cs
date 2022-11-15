@@ -236,6 +236,10 @@ namespace CociMundo
             Grafo.AgregarArista(Todos_los_destinos[23], Todos_los_destinos[15], 7);
             Grafo.AgregarArista(Todos_los_destinos[23], Todos_los_destinos[19], 6);
 
+            Furgon.SetGrafo(Grafo);
+            Furgoneta.SetGrafo(Grafo);
+            Camioneta.SetGrafo(Grafo);
+
 
 
             cocimundo.enviarVehiculos();

@@ -57,6 +57,9 @@ namespace CociMundo
             this.OrdenarPorVolumen(); //ordena la lista de pedidos de menor a mayor
             foreach (var item in VectorVehiculo) //para cada vehiculo
             {
+                Console.Clear();
+                Console.WriteLine(item.Modelo);
+                Console.ReadLine();
                 item.Problema_mochila_dinamico(); 
                 this.Todos_los_pedidos = item.todos_los_pedidos; //actualizamos la lista de cocimundo con los que quedarons
             }

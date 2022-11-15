@@ -9,7 +9,7 @@ namespace CociMundo
     class cVehiculo
     {
         int Cant_viajes_max;
-        string Modelo;
+        public string Modelo;
         int Carga_max;
         Stack<cPedido> PedidosHoy; 
         int Nafta_max;
@@ -44,8 +44,9 @@ namespace CociMundo
                 this.Nodo_actual = Camino_hasta_destino.Pop();  //vamos recorriendo el camino hasta destino
                 //mostrar en el form el nodo actual tipo de otro color
             }
+            Console.ReadLine();
 
-        }  
+        }
         public void Repartir() {
             if (this.Cant_viajes_max > 0)
             {
@@ -159,7 +160,16 @@ namespace CociMundo
                 Console.WriteLine();
             }
 
-            
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.WriteLine("Este vehiculo lleva los pedidos de :");
+            foreach(var item in cosas_que_llevo[n, Carga_max])
+            {
+
+                Console.Write(item.Nombre + " ");
+
+            }
 
             Console.ReadLine();
             Console.Clear();

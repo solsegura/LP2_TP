@@ -30,10 +30,10 @@ namespace CociMundo
             DateTime Fecha3 = new DateTime(2022, 11, 11);
 
 
-            cProducto Heladera = new cProducto("heladera", 10, 2000);
-            cProducto Microondas = new cProducto("microondas", 4, 100);
+            cProducto Heladera = new cProducto("heladera", 5, 2000);
+            cProducto Microondas = new cProducto("microondas", 1, 100);
             cProducto Licuadora = new cProducto("licuadora", 1, 300);
-            cProducto TV = new cProducto("TV", 2, 3000);
+            cProducto TV = new cProducto("TV", 1, 3000);
             cProducto Tostadora = new cProducto("tostadora", 1, 200);
 
             cPedido Pedido1 = new cPedido("Fiorella", Todos_los_destinos[0], Prioridad.diferido, Fecha1);
@@ -46,32 +46,37 @@ namespace CociMundo
             cPedido Pedido8 = new cPedido("Bruno", Todos_los_destinos[19], Prioridad.diferido, Fecha3);
 
             Pedido1.Lista_productos.Add(Heladera);  //fio necesita dos heladeras
-            Pedido1.Lista_productos.Add(Heladera);
+           // Pedido1.Lista_productos.Add(Heladera); //vol 6
             Pedido1.Lista_productos.Add(Microondas);
 
-            Pedido2.Lista_productos.Add(TV);
+            Pedido2.Lista_productos.Add(TV);  //vol 2
             Pedido2.Lista_productos.Add(Microondas);
             
-            Pedido3.Lista_productos.Add(Licuadora);
+            Pedido3.Lista_productos.Add(Licuadora);  //vol 1
 
-            Pedido4.Lista_productos.Add(Tostadora);
+            Pedido4.Lista_productos.Add(Tostadora);  //vol 3
             Pedido4.Lista_productos.Add(TV);
             Pedido4.Lista_productos.Add(TV);
 
             Pedido5.Lista_productos.Add(Licuadora); //eze renueva la cocina
-            Pedido5.Lista_productos.Add(Microondas);
-            Pedido5.Lista_productos.Add(Heladera);
+            Pedido5.Lista_productos.Add(Microondas); //vol 4
+            Pedido5.Lista_productos.Add(TV);
             Pedido5.Lista_productos.Add(Tostadora);
             
-            Pedido6.Lista_productos.Add(Tostadora);
+            Pedido6.Lista_productos.Add(Heladera); //vol 5
 
             
             Pedido7.Lista_productos.Add(TV);
+            Pedido7.Lista_productos.Add(TV);
+            Pedido7.Lista_productos.Add(Heladera);  //7
+
 
             Pedido8.Lista_productos.Add(Microondas);
+            Pedido8.Lista_productos.Add(Microondas);
+            Pedido8.Lista_productos.Add(Microondas); //vol 8
             Pedido8.Lista_productos.Add(Heladera);
 
-            cVehiculo Furgon = new cVehiculo(1, "no se", 30);
+            cVehiculo Furgon = new cVehiculo(1, "no se", 10);
             cVehiculo Furgoneta = new cVehiculo(1, "no se", 20);
             cVehiculo Camioneta = new cVehiculo(4, "no se", 30);
 

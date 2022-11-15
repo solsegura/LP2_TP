@@ -115,6 +115,7 @@ namespace CociMundo
             int i, w;
             int[,] matriz_dinamica = new int[n + 1, Carga_max + 1];
             List<cPedido>[,] cosas_que_llevo = new List<cPedido>[n + 1, Carga_max + 1];   //en esta matriz vamos a guardar los pedidos que debemos llevar en el vehiculo (quedan en el orden que llegan, osea ordenados por distancia)
+            
             int c = 0;
             
             for (i = 0; i <= n; i++)
@@ -126,7 +127,7 @@ namespace CociMundo
                         cosas_que_llevo[i, w] = new List<cPedido>();   
                     }
                     else if (todos_los_pedidos[i - 1].Volumen_total <= w) {
-                        if (todos_los_pedidos[i - 1].Val + matriz_dinamica[i - 1, w - todos_los_pedidos[i - 1].Volumen_total] > matriz_dinamica[i - 1, w])
+                        if (todos_los_pedidos[i - 1].Val + matriz_dinamica[i - 1, w - todos_los_pedidos[i - 1].Volumen_total] > matriz_dinamica[i - 1, w] )
                         {
 
                             matriz_dinamica[i, w] = todos_los_pedidos[i - 1].Val + matriz_dinamica[i - 1, w - todos_los_pedidos[i - 1].Volumen_total];
@@ -137,7 +138,7 @@ namespace CociMundo
                         else
                         {
                             matriz_dinamica[i, w] = matriz_dinamica[i - 1, w];
-                            cosas_que_llevo[1, w] = cosas_que_llevo[i - 1, w];
+                            cosas_que_llevo[i, w] = cosas_que_llevo[i - 1, w];
 
                         }
 

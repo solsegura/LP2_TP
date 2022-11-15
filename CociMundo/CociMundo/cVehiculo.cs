@@ -11,9 +11,7 @@ namespace CociMundo
         int Cant_viajes_max;
         string Modelo;
         int Carga_max;
-        int Carga_act;
-        bool Elevador;
-        Stack<cPedido> PedidosHoy; // una pila        tu pila y mi cola
+        Stack<cPedido> PedidosHoy; 
         int Nafta_max;
         int Nafta_act;
         public List<cPedido> todos_los_pedidos;
@@ -24,14 +22,25 @@ namespace CociMundo
             Dictionary<string, string> auxiliar = this.mapa.Dijkstra(this.Nodo_actual);  //ahora tengo un diccionario que tiene guardados todos los saltos entre nodos
             string nodo_aux = destino;
             Stack<string> Camino_hasta_destino=new Stack<string>();
+
+            Camino_hasta_destino.Push(nodo_aux);  //guardamos el destino al final
+
             while (nodo_aux != Nodo_actual)
             {
                 Camino_hasta_destino.Push(auxiliar[nodo_aux]);  //guardamos de atras para adelante el camino que hay que hacer 
                 nodo_aux = auxiliar[nodo_aux];
             }
+            Console.WriteLine();
 
-            for(int n = 0; n < Camino_hasta_destino.Count(); n++)
+            Console.WriteLine("Para ir de " + Nodo_actual + " hasta " + destino + " el camino es: ");
+
+
+            int a = Camino_hasta_destino.Count();
+            for (int n = 0; n < a; n++)
             {
+                //imprimo el siguiente nodo al que voy
+                Console.WriteLine(Camino_hasta_destino.Peek());
+
                 this.Nodo_actual = Camino_hasta_destino.Pop();  //vamos recorriendo el camino hasta destino
                 //mostrar en el form el nodo actual tipo de otro color
             }
@@ -64,7 +73,7 @@ namespace CociMundo
             this.Cant_viajes_max = cant_viajes_max;
             this.Modelo = modelo;
             this.Carga_max = carga_max;
-            this.Carga_act = 0;
+           // this.Carga_act = 0;
             //this.Cant_viajes_max = 0;
             this.PedidosHoy = new Stack<cPedido>();
             this.Nafta_max = nafta_max;
@@ -84,27 +93,7 @@ namespace CociMundo
 
         }
 
-        /// <summary>
-        /// ordenamos todos los pedidos de mas lejos de liniers a mas cerca
-        /// </summary>
-        /// <param name="cant_pedidos"></param>
-        //public void Ordenar_por_destino(int cant_pedidos)
-        //{
-        //    for (int n = 0; n < cant_pedidos; n++)
-        //    {
-        //        for(int i=0; i < cant_pedidos-1; i++)
-        //        {
-        //            if (todos_los_pedidos[i].Dist_a_liniers < todos_los_pedidos[i + 1].Dist_a_liniers)
-        //            {
-        //                cPedido aux = todos_los_pedidos[i];    
-        //                todos_los_pedidos[i] = todos_los_pedidos[i + 1];
-        //                todos_los_pedidos[i + 1] = aux;
-        //            }
-        //        }
-        //    }
-
-        //    this.Problema_mochila_dinamico(cant_pedidos); //una vez que esta ordenado ya podemos evaluar cuales van al camion
-        //}
+     
 
         /// <summary>
         /// Recibe el numero total de pedidos que hay en Cocimundo y retorna una lista con los pedidos que este camion va a repartir hoy
@@ -156,6 +145,25 @@ namespace CociMundo
 
                 }
             }
+            Console.Clear();
+
+            Console.WriteLine("----------Matriz Dinamica---------");
+            Console.WriteLine();
+
+            for (int k = 1; k < Carga_max + 1; k++)
+            {
+                for (int s=0;s< Carga_max+1;s++)
+                {
+                     Console.Write(matriz_dinamica[k,s] + " ");
+                 }
+                Console.WriteLine();
+            }
+
+            
+
+            Console.ReadLine();
+            Console.Clear();
+
             this.Llenar_vehiculo(cosas_que_llevo[n, Carga_max]);  //lleno el vehiculo con la lista que queda en la matriz
            
         }

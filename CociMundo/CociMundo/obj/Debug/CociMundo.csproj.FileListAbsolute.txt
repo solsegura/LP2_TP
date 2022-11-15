@@ -16,3 +16,4 @@ C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\o
 C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\obj\Debug\CociMundo.csproj.CoreCompileInputs.cache
 C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\obj\Debug\CociMundo.exe
 C:\Users\maver\OneDrive\Escritorio\Labo. Progra. ll\TP-LP2\CociMundo\CociMundo\obj\Debug\CociMundo.pdb
+C:\Users\sol\Desktop\Favaloro\Segundo\LP2\TP\CociMundo\CociMundo\obj\Debug\CociMundo.Form1.resources

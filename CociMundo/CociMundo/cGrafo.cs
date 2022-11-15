@@ -26,7 +26,7 @@ namespace CociMundo
         public Dictionary<string, string> Dijkstra(string nodo_partida) {
             HashSet<string> Lo_que_ya_visite = new HashSet<string>();
             string nodo_actual;
-            Dictionary<string, int> dist_hasta = new Dictionary<string, int>();
+            Dictionary<string, int> dist_hasta = new Dictionary<string, int>(); //nodo destino, valor de la linea
             Dictionary<string, string> salto_anterior = new Dictionary<string, string>();
             foreach (var item in this.Grafo){
                 dist_hasta[item.Key] = int.MaxValue;  //inicializo en valor muy grande la lista de distancias desde mi nodo de partida hasta el resto
@@ -36,10 +36,10 @@ namespace CociMundo
 
             for(int n = 0; n < this.Grafo.Count();n++) {
                 nodo_actual = Min_distancia(Lo_que_ya_visite, dist_hasta);
-                Lo_que_ya_visite.Add(nodo_partida);
+                Lo_que_ya_visite.Add(nodo_actual);
 
                 foreach(var (nodo, peso) in this.Grafo[nodo_actual]){  //me guardo el mejor camino 
-                    if (!Lo_que_ya_visite.Contains(nodo) && dist_hasta[nodo] > dist_hasta[nodo_actual] + peso)
+                    if (!Lo_que_ya_visite.Contains(nodo) && dist_hasta[nodo] > (dist_hasta[nodo_actual] + peso)) //peso es el valor de la arista que une nodo actual con nodo
                     {
                         dist_hasta[nodo] = dist_hasta[nodo_actual] + peso;
                         salto_anterior[nodo] = nodo_actual;

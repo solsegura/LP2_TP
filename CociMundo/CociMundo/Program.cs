@@ -7,9 +7,6 @@ using System.Windows.Forms;
 
 namespace CociMundo
 {
-   // enum Destino { Comuna1, Comuna2 };  //esto lo vamos a borrar
-   // enum Prioridad { express, diferido, el_otro };
-
     
     static class Program
     {
@@ -235,9 +232,9 @@ namespace CociMundo
             cocimundo.Todos_los_pedidos.Add(Pedido22);
             cocimundo.Todos_los_pedidos.Add(Pedido23);
 
-            cocimundo.VectorVehiculo.Add(Furgon);
-            cocimundo.VectorVehiculo.Add(Furgoneta);
             cocimundo.VectorVehiculo.Add(Camioneta);
+            cocimundo.VectorVehiculo.Add(Furgoneta);
+            cocimundo.VectorVehiculo.Add(Furgon);
 
             Furgon.SetPedidos(cocimundo.Todos_los_pedidos); //le pasamos todos los pedidos y despues c/u se qeuda con lo que le corresponde
             Furgoneta.SetPedidos(cocimundo.Todos_los_pedidos);
@@ -385,6 +382,7 @@ namespace CociMundo
             Furgoneta.SetCantViajes(1);
             Camioneta.SetCantViajes(4);
 
+       
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

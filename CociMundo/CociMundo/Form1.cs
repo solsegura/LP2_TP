@@ -16,5 +16,22 @@ namespace CociMundo
         {
             InitializeComponent();
         }
+
+        //Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0));
+        //e.Graphics.DrawLine(pen, 20, 10, 300, 100);
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Coumna15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Lanus_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

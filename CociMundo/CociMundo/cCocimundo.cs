@@ -52,13 +52,13 @@ namespace CociMundo
             //una vez que esta ordenado ya podemos evaluar cuales van a cada camion
         }
 
-        public void enviarVehiculos() {
+        public void enviarVehiculos() { //arranca el dia
 
-            this.OrdenarPorVolumen();
-            foreach (var item in VectorVehiculo)
+            this.OrdenarPorVolumen(); //ordena la lista de pedidos de menor a mayor
+            foreach (var item in VectorVehiculo) //para cada vehiculo
             {
-                item.Problema_mochila_dinamico();
-                this.Todos_los_pedidos = item.todos_los_pedidos; //actualizamos la lista con los que quedarons
+                item.Problema_mochila_dinamico(); 
+                this.Todos_los_pedidos = item.todos_los_pedidos; //actualizamos la lista de cocimundo con los que quedarons
             }
         }
     }

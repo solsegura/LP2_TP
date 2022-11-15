@@ -60,17 +60,17 @@ namespace CociMundo
         /// </summary>
         /// <param name="modelo"></param>
         /// <param name="carga_max"></param>
-        public cVehiculo(int cant_viajes_max, string modelo, int carga_max) {
+        public cVehiculo(int cant_viajes_max, string modelo, int carga_max, int nafta_max) {
             this.Cant_viajes_max = cant_viajes_max;
             this.Modelo = modelo;
             this.Carga_max = carga_max;
             this.Carga_act = 0;
             //this.Cant_viajes_max = 0;
             this.PedidosHoy = new Stack<cPedido>();
-            this.Nafta_max = 0;
+            this.Nafta_max = nafta_max;
             this.todos_los_pedidos = new List<cPedido>();
             this.mapa = new cGrafo();
-            this.Nodo_actual = "Comuna 9";
+            this.Nodo_actual = "Comuna 9"; //seteamos a todos en liniers
         }
 
         public void SetPedidos(List<cPedido> pedidos)
@@ -78,7 +78,7 @@ namespace CociMundo
             this.todos_los_pedidos = pedidos;
 
         }
-        public void SetGrafo(cGrafo g)
+        public void SetGrafo(cGrafo g) 
         {
             this.mapa = g;
 
@@ -111,36 +111,35 @@ namespace CociMundo
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public void Problema_mochila_dinamico( )  //val es mas grande para los elementos que menos tiempo les queda
+        public void Problema_mochila_dinamico()  //val es mas grande para los elementos que menos tiempo les queda
         {
             foreach(var item in this.todos_los_pedidos){
-                item.CalcularVolTotal();
+                item.CalcularVolTotal(); //volumen de cada pedido
             }
-            int n = todos_los_pedidos.Count();
+            int n = todos_los_pedidos.Count(); //cant de pedidos totales
             int i, w;
-            int[,] matriz_dinamica = new int[n + 1, Carga_max + 1];
-            List<cPedido>[,] cosas_que_llevo = new List<cPedido>[n + 1, Carga_max + 1];   //en esta matriz vamos a guardar los pedidos que debemos llevar en el vehiculo (quedan en el orden que llegan, osea ordenados por distancia)
-            
-            int c = 0;
+            int[,] matriz_dinamica = new int[n + 1, Carga_max + 1]; //volumen del pedido vs volumen del camion
+            List<cPedido>[,] cosas_que_llevo = new List<cPedido>[n + 1, Carga_max + 1];   
+            //en esta matriz vamos a guardar los pedidos que debemos llevar en el vehiculo (quedan en el orden que llegan, osea ordenados por distancia)
             
             for (i = 0; i <= n; i++)
             {
                 for (w = 0; w <= Carga_max; w++)
                 {
-                    if (i == 0 || w == 0) {
+                    if (i == 0 || w == 0) { //las rimeras pos son 0
                         matriz_dinamica[i, w] = 0;
                         cosas_que_llevo[i, w] = new List<cPedido>();   
                     }
-                    else if (todos_los_pedidos[i - 1].Volumen_total <= w) {
+                    else if (todos_los_pedidos[i - 1].Volumen_total <= w) { //si tengo lugar
                         if (todos_los_pedidos[i - 1].Val + matriz_dinamica[i - 1, w - todos_los_pedidos[i - 1].Volumen_total] > matriz_dinamica[i - 1, w] )
-                        {
+                        { //si tengo lugarme fijo si es mejor meter el nuevo o dejar el anterior (valor total nuevo > valor total anterior)
 
-                            matriz_dinamica[i, w] = todos_los_pedidos[i - 1].Val + matriz_dinamica[i - 1, w - todos_los_pedidos[i - 1].Volumen_total];
-                            cosas_que_llevo[i, w] = cosas_que_llevo[i - 1, w - todos_los_pedidos[i - 1].Volumen_total];
-                            cosas_que_llevo[i, w].Add(todos_los_pedidos[i - 1]);
+                            matriz_dinamica[i, w] = todos_los_pedidos[i - 1].Val + matriz_dinamica[i - 1, w - todos_los_pedidos[i - 1].Volumen_total]; //agrego este nuevo valor
+                            cosas_que_llevo[i, w] = cosas_que_llevo[i - 1, w - todos_los_pedidos[i - 1].Volumen_total]; //me compio la pos anterior en al nueva
+                            cosas_que_llevo[i, w].Add(todos_los_pedidos[i - 1]); //agrego el nuevo al final
 
                         }
-                        else
+                        else //si no me conviene lo dejo igual
                         {
                             matriz_dinamica[i, w] = matriz_dinamica[i - 1, w];
                             cosas_que_llevo[i, w] = cosas_que_llevo[i - 1, w];
@@ -148,7 +147,7 @@ namespace CociMundo
                         }
 
                     }
-                    else
+                    else //si no tengo lugar lo dejo
                     {
                         matriz_dinamica[i, w] = matriz_dinamica[i - 1, w];
                         cosas_que_llevo[i, w] = cosas_que_llevo[i - 1, w];
@@ -182,7 +181,7 @@ namespace CociMundo
             }  
             foreach (var item in cosas_que_llevo)
             {
-                this.PedidosHoy.Push(item);
+                this.PedidosHoy.Push(item); //meto en la pila
                 this.todos_los_pedidos.Remove(item); //lo borro de la lista de todos los productos porque ya lo saque del almacen
             }
 
